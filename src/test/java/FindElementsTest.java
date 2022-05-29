@@ -5,8 +5,9 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import pages.BaseAuthorizedPage;
 import pages.LoginPage;
-import pages.StaticElementsOnPage;
+
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.not;
@@ -25,19 +26,19 @@ public class FindElementsTest extends BaseTest {
     }
 
 
-    @Test
-    void StaticElementsPageTest() {
-        new StaticElementsOnPage(driver)
-                .goToTwitter()
-                .checkContinueButton()
-                .checkCancel()
-                .checkAboutButton()
-                .checkExitSideButton()
-                .checkLogoutButton()
-                .checkResetAppStateButton()
-                .checkSideLabelAllItemsButton()
-                .goToFacebook()
-                .goToLinkedIn();
+    //@Test
+  //  void StaticElementsPageTest() {
+      //  new BaseAuthorizedPage(driver)
+               // .goToTwitter()
+              //  .checkContinueButton()
+              //  .checkCancel()
+               // .checkAboutButton()
+               // .checkExitSideButton()
+              //  .checkLogoutButton()
+               // .checkResetAppStateButton()
+               // .checkSideLabelAllItemsButton()
+               // .goToFacebook()
+               // .goToLinkedIn();
 
     }
-}
+

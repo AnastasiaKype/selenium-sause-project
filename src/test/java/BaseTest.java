@@ -15,6 +15,9 @@ public class BaseTest {
     static String baseUrl;
     static String username;
     static String password;
+    static String firstname;
+    static String lastname;
+    static String postalcode;
 
     @BeforeAll
     static void beforeAllTests() throws IOException {
@@ -22,6 +25,9 @@ public class BaseTest {
         baseUrl = properties.getProperty("base.url");
         username = properties.getProperty("problem.username");
         password = properties.getProperty("standard.password");
+        firstname = properties.getProperty("firstname");
+        lastname = properties.getProperty("lastname");
+        postalcode = properties.getProperty("postalcode");
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-notifications");

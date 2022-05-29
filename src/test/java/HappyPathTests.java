@@ -12,34 +12,45 @@ import static org.hamcrest.CoreMatchers.not;
 import static org.hamcrest.MatcherAssert.assertThat;
 
 class HappyPathTests extends BaseTest {
-@Test
-void happyPathTestRefactor() {
-    new LoginPage(driver)
-            .loginEnter(username)
-            .passwordEnter(password)
-            .clickLoginButton();
+    @Test
+    void authorisationPositiveTest() {
+        new LoginPage(driver)
+                .loginEnter(username)
+                .passwordEnter(password)
+                .clickLoginButton()
+                .checkInventoryPageURL()
+                .checkCartOnThePage()
+                .goLogout();
+    }
 
-    new ByerInformationPage(driver)
-            .enterFirstName()
-            .checkFirstNamePlaceholder()
-            .enterLastName()
-            .checkLastNamePlaceholder()
-            .enterPostalCode()
-            .clickToContinueButton()
-            .checkStepOnePageUrl();
+    @Test
+    void happyPathTest() {
+        new LoginPage(driver)
+                .loginEnter(username)
+                .passwordEnter(password)
+                .clickLoginButton()
+                .checkInventoryPageURL()
+                .checkCartOnThePage()
+                .clickButtonAddBackPack()
+                .clickCartButton()
+                .checkCartPageURL()
+                .checkBackpackOnTheCart()
+                .clickCheckoutButton()
+                .checkCheckoutStepOnePageURL()
+                .enterFirstname(firstname)
+                .enterLastname(lastname)
+                .enterPostalCode(postalcode)
+                .clickContinueButton()
+                .checkCheckOutStepTwoRageURL()
+                .checkBackpackOnOrder()
+                .clickFinishButton()
+                .checkCheckoutCompletePageURL()
+                .checkCompleteMessage()
+                .clickBackToProductButton()
+                .checkInventoryPageURL()
+                .goLogout();
+    }
 
-    new PaymentPage(driver)
-            .checkPageUrl()
-            .checkLabelInformation()
-            .clickToFinishButton();
-
-
-
-    new FinishPage(driver)
-            .checkFinishPageUrl()
-            .checkLabelFinishOnPage();
-
-}
 
 
 
