@@ -1,5 +1,10 @@
 package pages;
 
+import elements.SortingDropDownValues;
+import elements.SortingDropPriceDown;
+import elements.SortingDropPriceUp;
+import elements.SortingDropUpValues;
+import lombok.Getter;
 import org.hamcrest.core.IsEqual;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -9,77 +14,84 @@ import org.openqa.selenium.support.FindBy;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.core.IsNot.not;
+import static org.openqa.selenium.support.PageFactory.initElements;
 
 public class InventoryPage extends BaseAuthorizedPage {
 
-    @FindBy(id = "add-to-cart-sauce-labs-backpack")
-    private WebElement buttonAddBackpack;
-
-    @FindBy(id = "add-to-cart-sauce-labs-bolt-t-shirt")
-    private WebElement buttonAddBoltTShirt;
-
-    @FindBy(id = "add-to-cart-sauce-labs-bike-light")
-    private WebElement buttonAddBikeLight;
-
-    @FindBy(id = "add-to-cart-sauce-labs-fleece-jacket")
-    private WebElement buttonAddFleeceJacket;
-
-    @FindBy(id = "add-to-cart-sauce-labs-onesie")
-    private WebElement buttonAddOnesie;
-
-    @FindBy(id = "add-to-cart-test.allthethings()-t-shirt-(red)")
-    private WebElement buttonAddRedTShirt;
-
+    @Getter
     @FindBy(id = "shopping_cart_container")
-    private WebElement cartButton;
+    WebElement cartContainer;
+    @Getter
+    @FindBy(css = ".shopping_cart_badge")
+    WebElement shoppingCartBadge;
+
+    @Getter
+    @FindBy(css = "[data-test=product_sort_container]")
+    WebElement sortingDropdown;
 
     public InventoryPage(WebDriver driver) {
-
         super(driver);
+        initElements(this.driver, this);
     }
 
-    public InventoryPage checkInventoryPageURL(){
+    public InventoryPage checkInventoryPageUrl() {
         assertThat(driver.getCurrentUrl(), equalTo("https://www.saucedemo.com/inventory.html"));
         return this;
     }
 
-    public InventoryPage checkCartOnThePage(){
-        assertThat(cartButton.getSize(), not(IsEqual.equalTo("0")));
+    public InventoryPage checkCartOnThePage() {
+        assertThat(driver.findElements(By.cssSelector("#shopping_cart_container")).size(), not(equalTo(0)));
         return this;
     }
 
-    public InventoryPage clickButtonAddBackPack(){
-        buttonAddBackpack.click();
+    public InventoryPage chooseSortingOption(String value) {
+        sortingDropdown.click();
+        By locator = SortingDropDownValues.valueOf(value).getElementLocator();
+        driver.findElement(locator).click();
         return this;
     }
 
-    public InventoryPage clickButtonAddBoltTShirt(){
-        buttonAddBoltTShirt.click();
+    public InventoryPage chooseSortingOption(SortingDropDownValues value) {
+        sortingDropdown.click();
+        driver.findElement(value.getElementLocator()).click();
+        return this;
+    }
+    public InventoryPage chooseSortingOptionUp(String value) {
+        sortingDropdown.click();
+        By locator = SortingDropUpValues.valueOf(value).getElementLocator();
+        driver.findElement(locator).click();
+        return this;
+    }
+    public InventoryPage chooseSortingOptionUp(SortingDropDownValues value) {
+        sortingDropdown.click();
+        driver.findElement(value.getElementLocator()).click();
+        return this;
+    }
+    public InventoryPage chooseSortingOptionPriceUp(String value) {
+        sortingDropdown.click();
+        By locator = SortingDropPriceUp.valueOf(value).getElementLocator();
+        driver.findElement(locator).click();
+        return this;
+    }
+    public InventoryPage chooseSortingOptionPriceUp(SortingDropPriceUp value) {
+        sortingDropdown.click();
+        driver.findElement(value.getElementLocator()).click();
+        return this;
+    }
+    public InventoryPage chooseSortingOptionPriceDown(String value) {
+        sortingDropdown.click();
+        By locator = SortingDropPriceDown.valueOf(value).getElementLocator();
+        driver.findElement(locator).click();
+        return this;
+    }
+    public InventoryPage chooseSortingOptionPriceDown(SortingDropPriceDown value) {
+        sortingDropdown.click();
+        driver.findElement(value.getElementLocator()).click();
         return this;
     }
 
-    public InventoryPage clickButtonAddBikeLight(){
-        buttonAddBikeLight.click();
-        return this;
-    }
-
-    public InventoryPage clickButtonAddFleeceJacket(){
-        buttonAddFleeceJacket.click();
-        return this;
-    }
-
-    public InventoryPage clickButtonAddOnesie(){
-        buttonAddOnesie.click();
-        return this;
-    }
-
-    public InventoryPage clickButtonAddRedTShirt(){
-        buttonAddRedTShirt.click();
-        return this;
-    }
-
-    public CartPage clickCartButton(){
-        cartButton.click();
-        return new CartPage(driver);
+    @Override
+    public LoginPage logOut() {
+        return null;
     }
 }

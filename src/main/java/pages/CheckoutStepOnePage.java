@@ -69,23 +69,6 @@ public class CheckoutStepOnePage extends BaseAuthorizedPage{
         return this;
     }
 
-    public CheckoutStepOnePage checkCancelButton(){
-        String id = cancelButton.getAttribute("id");
-        assertThat(existElementById(id) , equalTo(true));
-        return this;
-    }
-
-    public CheckoutStepOnePage checkContinueButton(){
-        String id = continueButton.getAttribute("id");
-        assertThat(existElementById(id) , equalTo(true));
-        return this;
-    }
-
-    public CheckoutStepOnePage checkCartButton(){
-        String id = cartButton.getAttribute("id");
-        assertThat(existElementById(id) , equalTo(true));
-        return this;
-    }
 
     public CheckoutStepOnePage checkLogo(){
         assertThat(logout.getSize(), not(equalTo("0")));

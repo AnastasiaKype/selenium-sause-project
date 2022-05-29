@@ -1,8 +1,11 @@
+import io.qameta.allure.Allure;
 import org.junit.jupiter.api.AfterAll;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+import org.openqa.selenium.logging.LogType;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,10 +14,10 @@ import java.util.Properties;
 public class BaseTest {
     private static final String PATH_TO_PROPERTIES = "src/test/resources/application.properties";
     static Properties properties = new Properties();
-    static WebDriver driver;
-    static String baseUrl;
-    static String username;
-    static String password;
+    public static WebDriver driver;
+    public static String baseUrl;
+    public static String username;
+    public static String password;
     static String firstname;
     static String lastname;
     static String postalcode;
@@ -38,9 +41,19 @@ public class BaseTest {
         driver.get(baseUrl);
     }
 
+    @AfterEach
+    void afterEach() throws IOException {
+        Allure.addAttachment("Page screenshot", new FileInputStream(ScreenshotMaker.makeScreenshotOnFailure(driver)));
+        driver.manage()
+                .logs()
+                .get(LogType.BROWSER)
+                .getAll()
+                .forEach(System.out::println);
+    }
+
     @AfterAll
     static void afterAll() {
-        if (driver!=null){
+        if (driver != null) {
             driver.quit();
         }
     }

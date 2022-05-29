@@ -1,5 +1,6 @@
 package pages;
 
+import io.qameta.allure.Step;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -17,18 +18,21 @@ public class LoginPage extends BasePage {
         super(driver);
     }
 
+    @Step("Вводим логин {loginName}")
     public LoginPage loginEnter(String loginName) {
         loginInput.click();
         loginInput.sendKeys(loginName);
         return this;
     }
 
+    @Step("Вводим пароль {password}")
     public LoginPage passwordEnter(String password) {
         passwordInput.click();
         passwordInput.sendKeys(password);
         return this;
     }
 
+    @Step("Нажимаем кнопку авторизации")
     public InventoryPage clickLoginButton() {
         loginButton.click();
         return new InventoryPage(driver);

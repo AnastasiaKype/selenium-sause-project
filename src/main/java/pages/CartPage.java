@@ -83,7 +83,12 @@ public class CartPage extends BaseAuthorizedPage{
 
     public CheckoutStepOnePage clickCheckoutButton(){
         buttonCheckout.click();
-        return new CheckoutStepOnePage(driver);
+        return new CheckoutStepOnePage(driver) {
+            @Override
+            public LoginPage logOut() {
+                return null;
+            }
+        };
     }
     public InventoryPage clickContinueShoppingButton(){
         buttonContinueShopping.click();

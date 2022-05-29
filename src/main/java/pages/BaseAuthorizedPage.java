@@ -1,5 +1,7 @@
 package pages;
 
+import elements.FooterPageElement;
+import elements.SideElement;
 import org.hamcrest.core.IsEqual;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -11,7 +13,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 import static utils.UtilsTab.switchToTheNextTab;
 
-public class BaseAuthorizedPage extends BasePage {
+public class BaseAuthorizedPage extends BasePage implements FooterPageElement, SideElement {
 
     @FindBy(css = ".social_twitter a")
     WebElement twitterButton;
@@ -47,8 +49,25 @@ public class BaseAuthorizedPage extends BasePage {
 
         super(driver);
     }
+    @Override
+    public void goToTwitter(){
+        twitterButton.click();
+        switchToTheNextTab(driver);
+        assertThat(driver.getCurrentUrl(), containsString("twitter.com"));
+    }
+    @Override
+    public void goToFacebook(){
+        facebookButton.click();
+        switchToTheNextTab(driver);
+        assertThat(driver.getCurrentUrl(), containsString("facebook.com"));
+    }
 
-
+    @Override
+    public void goToLinkedIn(){
+        linkedInButton.click();
+        switchToTheNextTab(driver);
+        assertThat(driver.getCurrentUrl(), containsString("linkedin.com"));
+    }
     public BaseAuthorizedPage clickOpenReactMenuButton(){
         reactMenuOpenButton.click();
         return this;
@@ -79,32 +98,17 @@ public class BaseAuthorizedPage extends BasePage {
         return this;
     }
 
-    public BaseAuthorizedPage goLogout(){
+    @Override
+    public LoginPage goLogout(){
         reactMenuOpenButton.click();
         logout.click();
         assertThat(driver.getCurrentUrl(), equalTo("https://www.saucedemo.com/"));
-        return this;
+        return new LoginPage(driver);
     }
 
-    public BaseAuthorizedPage goToTwitter(){
-        twitterButton.click();
-        switchToTheNextTab(driver);
-        assertThat(driver.getCurrentUrl(), containsString("twitter.com"));
-        return this;
+    @Override
+    public LoginPage logOut() {
+        return null;
     }
 
-    public BaseAuthorizedPage goToFacebook(){
-        facebookButton.click();
-        switchToTheNextTab(driver);
-        assertThat(driver.getCurrentUrl(), containsString("facebook.com"));
-        return this;
-
-    }
-
-    public BaseAuthorizedPage goToLinkedIn(){
-        linkedInButton.click();
-        switchToTheNextTab(driver);
-        assertThat(driver.getCurrentUrl(), containsString("linkedin.com"));
-        return this;
-    }
 }
