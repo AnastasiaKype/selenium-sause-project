@@ -37,4 +37,10 @@ public class LoginPage extends BasePage {
         loginButton.click();
         return new InventoryPage(driver);
     }
+    @Step("Вводим логин {loginName} perfomance")
+    public LoginPage loginEnterPerfomance(String loginNameTwo) {
+        loginInput.click();
+        loginInput.sendKeys(loginNameTwo);
+        return this;
+    }
 }

@@ -18,6 +18,7 @@ public class BaseTest {
     public static String baseUrl;
     public static String username;
     public static String password;
+    public static String usernameTwo;
     static String firstname;
     static String lastname;
     static String postalcode;
@@ -31,6 +32,7 @@ public class BaseTest {
         firstname = properties.getProperty("firstname");
         lastname = properties.getProperty("lastname");
         postalcode = properties.getProperty("postalcode");
+        usernameTwo = properties.getProperty("performance.glitch.user.username");
         System.setProperty("webdriver.chrome.driver", "src/test/resources/chromedriver.exe");
         ChromeOptions options = new ChromeOptions();
         options.addArguments("--disable-notifications");
